@@ -4,40 +4,38 @@ from app import get_weather, ask_gemini, should_call_weather, extract_city
 st.set_page_config(
     page_title="Weather Chatbot 🌤️",
     page_icon="⛅",
-    layout="wide"
+    layout="centered"
 )
 
 st.title("🌤️ Weather Chatbot")
-st.markdown("Ask about the weather in any city or just chat with me!")
+st.caption("Ask real-time weather for any city worldwide")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-user_input = st.text_input("Type your message here...")
+user_input = st.text_input("Ask about weather (e.g. weather in Karachi)")
 
 if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    st.session_state.messages.append(("You", user_input))
 
     if should_call_weather(user_input):
         city = extract_city(user_input)
-        weather_data = get_weather(city)
 
-        if "error" in weather_data:
-            bot_reply = f"Sorry, I couldn't find the weather for {city} 😅"
+        if not city:
+            reply = "Please specify a city name 🌍"
         else:
-            prompt = (
-                f"Describe today's weather in {weather_data['city']}. "
-                f"The temperature is {weather_data['temp']}°C with "
-                f"{weather_data['desc']}. Respond in a friendly paragraph."
-            )
-            bot_reply = ask_gemini(prompt)
+            weather = get_weather(city)
+            if not weather:
+                reply = f"Sorry, I couldn't find weather for **{city}** 😅"
+            else:
+                reply = ask_gemini(weather)
     else:
-        bot_reply = ask_gemini(user_input)
+        reply = "I currently support weather-related questions only 🌤️"
 
-    st.session_state.messages.append({"role": "bot", "content": bot_reply})
+    st.session_state.messages.append(("Bot", reply))
 
-for msg in st.session_state.messages:
-    if msg["role"] == "user":
-        st.markdown(f"**You:** {msg['content']}")
+for role, msg in st.session_state.messages:
+    if role == "You":
+        st.markdown(f"**🧑 You:** {msg}")
     else:
-        st.markdown(f"**Bot:** {msg['content']}")
+        st.markdown(f"**🤖 Bot:** {msg}")
