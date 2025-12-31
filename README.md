@@ -104,7 +104,7 @@ The app will open automatically in your browser.
 
 ---
 
-## 📸 Screenshots (Optional)
+## 📸 Screenshots 
 
 <img width="1920" height="642" alt="image" src="https://github.com/user-attachments/assets/2ef09168-3504-45dd-be65-d878197e67ed" />
 
