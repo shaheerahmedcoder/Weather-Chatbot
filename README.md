@@ -1,6 +1,6 @@
 # 🌦️ Weather Chatbot
 
-An **AI-powered Weather Chatbot** that provides real-time weather information in a conversational way. The chatbot fetches live weather data using the **OpenWeather API** and generates human-like, context-aware responses using **Google Gemini (Generative AI)**. The application is built with **Python** and **Streamlit** for a clean and interactive UI.
+An **AI powered Weather Chatbot** that provides real-time weather information in a conversational way. The chatbot fetches live weather data using the **OpenWeather API** and generates human-like, context-aware responses using **Google Gemini (Generative AI)**. The application is built with **Python** and **Streamlit** for a clean and interactive UI.
 
 ---
 
